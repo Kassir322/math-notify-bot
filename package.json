@@ -1,0 +1,26 @@
+{
+	"name": "math-notify-bot",
+	"version": "1.0.0",
+	"description": "",
+	"main": "dist/app.js",
+	"scripts": {
+		"dev": "tsc-watch --skipLibCheck --onSuccess \"node ./dist/app.js\""
+	},
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@types/node": "^20.11.30",
+		"@typescript-eslint/eslint-plugin": "^7.3.1",
+		"@typescript-eslint/parser": "^7.3.1",
+		"eslint": "^8.57.0",
+		"eslint-plugin-no-floating-promise": "^1.0.2",
+		"tsc-watch": "^6.0.4",
+		"typescript": "^5.4.3"
+	},
+	"dependencies": {
+		"dotenv": "^16.4.5",
+		"envalid": "^8.0.0",
+		"grammy": "^1.21.1",
+		"prettier": "^3.2.5"
+	}
+}
