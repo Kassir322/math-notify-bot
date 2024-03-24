@@ -18,9 +18,13 @@
 		"typescript": "^5.4.3"
 	},
 	"dependencies": {
+		"@typegoose/typegoose": "^12.2.0",
+		"@types/node-schedule": "^2.1.6",
 		"dotenv": "^16.4.5",
 		"envalid": "^8.0.0",
 		"grammy": "^1.21.1",
+		"mongoose": "^8.2.3",
+		"node-schedule": "^2.1.1",
 		"prettier": "^3.2.5"
 	}
 }

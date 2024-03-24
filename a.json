@@ -1,0 +1,22 @@
+{
+  "_id": "ObjectId",
+  "user_id": 512312312,
+  "parent_id": 12345,
+  "name": "Петя",
+  "surname": "Петров",
+  "schedule": ["0 0 20 * * 7", "0 0 20 * * 4"],
+  "traffic": [
+    {
+      "month": 4,
+      "lessons": [1, 1, -1, -1]
+    },
+    {
+      "month": 5,
+      "lessons": [1, 1, -1, 1, 1]
+    },
+    {
+      "month": 6,
+      "lessons": [1, 1, -1, 0]
+    }
+  ]
+}
