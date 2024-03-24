@@ -57,7 +57,7 @@ async function runApp() {
 
   // Start the bot.
   bot.start()
-  startJobs()
+  // startJobs()
 }
 
 void runApp()

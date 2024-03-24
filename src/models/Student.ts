@@ -51,3 +51,7 @@ export function findOrCreateStudent(
     { upsert: true, new: true }
   )
 }
+
+export function getSchedules() {
+  return StudentModel.find({}, { schedule: 1, user_id: 1 })
+}
