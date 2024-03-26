@@ -1,51 +1,51 @@
-import { Bot, Context, NextFunction } from 'grammy'
-import env from './helpers/env'
-import { startJobs } from './jobs'
-import { findOrCreateStudent } from './models/Student'
+import { Bot, NextFunction, session } from 'grammy'
 import startMongo from './helpers/startMongo'
+import { studentHandler } from './handlers/studentHandler'
+import env from './helpers/env'
+import { conversations, createConversation } from '@grammyjs/conversations'
+import Context from './models/Context'
+import responseTime from './middlewares/responseTime'
+import greeting from './conversations/greeting'
 
 /** Measures the response time of the bot, and logs it to `console` */
-async function responseTime(
-  ctx: Context,
-  next: NextFunction // is an alias for: () => Promise<void>
-): Promise<void> {
-  const before = Date.now()
+
+async function setDeveloper(ctx: Context, next: NextFunction) {
+  ctx.config = {
+    botDeveloper: Number(env.BOT_DEVELOPER),
+    isDeveloper: ctx.from?.id === Number(env.BOT_DEVELOPER),
+  }
   await next()
-  const after = Date.now()
-  console.log(`Response time: ${after - before} ms`)
 }
 
-export const bot = new Bot(env.TOKEN)
+export const bot = new Bot<Context>(env.TOKEN)
 
 async function runApp() {
   await startMongo()
 
+  bot.use(
+    session({
+      initial() {
+        // return empty object for now
+        return {}
+      },
+    })
+  )
   bot.use(responseTime)
+  bot.use(setDeveloper)
+  bot.use(conversations())
+  bot.use(createConversation(greeting))
 
   // Handle the /start command.
-  bot.command('start', (ctx) => ctx.reply('Welcome! Up and running.'))
-  bot.command('student', async (ctx) => {
-    if (!ctx.from) {
-      throw new Error('No from field found')
-    }
-    const student = await findOrCreateStudent(
-      809673990,
-      1053884681,
-      'Дима',
-      'Сенцов',
-      ['0 14 23 * * *', '0 15 23 * * *'],
-      [
-        {
-          month: 4,
-          lessons: [1, 1, -1, -1],
-        },
-      ]
-    )
-    if (!student) {
-      throw new Error('Student not found')
+  bot.command('start', (ctx) => {
+    if (ctx.config.isDeveloper) {
+      ctx.reply('Hi Admin!')
     } else {
-      console.log('created')
+      ctx.reply('Welcome! Up and running.')
     }
+  })
+  bot.command('student', studentHandler)
+  bot.command('conversation', async (ctx) => {
+    await ctx.conversation.enter('greeting')
   })
   // Handle other messages.
   bot.on('message', (ctx) => ctx.reply('Got another message!'))
@@ -57,7 +57,6 @@ async function runApp() {
 
   // Start the bot.
   bot.start()
-  // startJobs()
 }
 
 void runApp()

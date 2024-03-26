@@ -1,6 +1,6 @@
 import { scheduleJob } from 'node-schedule'
 import { bot } from './app'
-import { Student, getSchedules } from './models/Student'
+import { getSchedules } from './models/Student'
 
 const jobsArray: {
   username: string

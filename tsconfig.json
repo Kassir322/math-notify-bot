@@ -1,18 +1,16 @@
 {
   "compilerOptions": {
+    "target": "es2016",
     "module": "commonjs",
-    "target": "es6",
-    "lib": ["es2015"],
     "moduleResolution": "node",
-    "sourceMap": true,
     "outDir": "dist",
-    "baseUrl": "src",
-    "paths": {
-      "@/*": ["*"]
-    },
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "strict": true
   },
-  "include": ["src/**/*"]
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Recommended"
 }

@@ -15,9 +15,11 @@
 		"eslint": "^8.57.0",
 		"eslint-plugin-no-floating-promise": "^1.0.2",
 		"tsc-watch": "^6.0.4",
+		"tsconfig-paths": "^4.2.0",
 		"typescript": "^5.4.3"
 	},
 	"dependencies": {
+		"@grammyjs/conversations": "^1.2.0",
 		"@typegoose/typegoose": "^12.2.0",
 		"@types/node-schedule": "^2.1.6",
 		"dotenv": "^16.4.5",

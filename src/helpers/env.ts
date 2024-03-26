@@ -8,4 +8,5 @@ dotenv.config({ path: resolve(cwd(), '.env') })
 export default cleanEnv(process.env, {
   TOKEN: str(),
   MONGO: str(),
+  BOT_DEVELOPER: str(),
 })
