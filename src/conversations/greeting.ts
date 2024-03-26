@@ -6,10 +6,18 @@ export default async function greeting(
   ctx: Context
 ) {
   await ctx.reply('Hi there! What is your name?')
-  const { message } = await conversation.wait()
-  if (message) {
-    await ctx.reply(`Welcome to the chat, ${message.text}!`)
+  const message1 = await (await conversation.wait()).message
+  if (message1) {
+    await ctx.reply(`Welcome to the chat, ${message1.text}!`)
   } else {
     await ctx.reply(`Message not found!`)
   }
+  // await ctx.reply('Второе?')
+
+  // const message2 = (await conversation.wait()).message
+  // if (message2) {
+  //   await ctx.reply(`Welcome to the chat, ${message2.text}!`)
+  // } else {
+  //   await ctx.reply(`Message not found!`)
+  // }
 }

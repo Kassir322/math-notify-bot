@@ -1,4 +1,5 @@
 import { getModelForClass, modelOptions, prop } from '@typegoose/typegoose'
+import { v4 } from 'uuid'
 
 class Traffic {
   @prop({ required: true })
@@ -17,7 +18,9 @@ export class Student {
   @prop({ required: true, unique: true, index: true })
   user_id!: number
   @prop({ required: true, index: true })
-  parent_id!: number
+  parent_id!: number[]
+  @prop({ required: true })
+  invitation_code!: number
   @prop({ required: true })
   name!: string
   @prop({ required: true })
@@ -25,27 +28,35 @@ export class Student {
   @prop({ required: true })
   schedule!: string[]
   @prop({ required: true })
-  trafficTEST!: Traffic[]
+  traffic!: Traffic[]
+
+  // public static async findByUserId(
+  //   this: ReturnModelType<typeof Student>,
+  //   user_id: number
+  // ) {
+  //   return this.find({ user_id }).exec()
+  // }
 }
 
 const StudentModel = getModelForClass(Student)
 
-export function findOrCreateStudent(
+export function CreateStudent(
   user_id: number,
-  parent_id: number,
+  parent_id: number[],
   name: string,
   surname: string,
   schedule: string[],
-  trafficTEST: Traffic[]
+  traffic: Traffic[]
 ) {
   return StudentModel.findOneAndUpdate(
     {
       user_id,
       parent_id,
       name,
+      invitation_code: v4(),
       surname,
       schedule,
-      trafficTEST,
+      traffic,
     },
     {},
     { upsert: true, new: true }
@@ -54,4 +65,8 @@ export function findOrCreateStudent(
 
 export function getSchedules() {
   return StudentModel.find({}, { schedule: 1, user_id: 1 })
+}
+
+export function findStudentById(user_id: number) {
+  return StudentModel.findOne({ user_id }, {})
 }
