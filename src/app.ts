@@ -1,6 +1,5 @@
 import { Bot, session } from 'grammy'
 import startMongo from './helpers/startMongo'
-import { studentHandler } from './handlers/studentHandler'
 import env from './helpers/env'
 import { conversations, createConversation } from '@grammyjs/conversations'
 import Context from './models/Context'
@@ -40,10 +39,6 @@ async function runApp() {
     await ctx.conversation.exit()
     await ctx.reply('Диалог успешно прерван.')
   })
-  bot.command('student', studentHandler)
-
-  // Now that you specified how to handle messages, you can start your bot.
-  // This will connect to the Telegram servers and wait for messages.
 
   bot.catch(console.error)
 
