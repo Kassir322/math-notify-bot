@@ -20,7 +20,9 @@ export class Student {
   name!: string
   @prop({ required: true })
   surname!: string
+  @prop()
   schedule!: string[]
+  @prop()
   traffic!: Traffic[]
 }
 
@@ -40,7 +42,10 @@ export function CreateStudent(user_id: number, name: string, surname: string) {
 }
 
 export function getSchedules() {
-  return StudentModel.find({}, { schedule: 1, user_id: 1 })
+  return StudentModel.find(
+    { schedule: { $gt: '' } },
+    { schedule: 1, user_id: 1 }
+  )
 }
 
 export function findStudentById(user_id: number) {

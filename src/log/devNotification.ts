@@ -14,6 +14,22 @@ export async function registerNotification(ctx: Context, user_id: number) {
   }
 }
 
+export async function registerNotificationWithSchedule(
+  ctx: Context,
+  user_id: number,
+  schedule: string
+) {
+  const student = await findStudentById(user_id)
+  if (student) {
+    console.log(student)
+    const notifyText =
+      `Зарегестрирован ученик: ${student.name} ${student.surname}:\n` +
+      `user_id: ${student.user_id} \n` +
+      `schedule: { ${schedule} }`
+    ctx.api.sendMessage(ctx.config.botDeveloper, notifyText)
+  }
+}
+
 // {
 //   _id: new ObjectId('66040acd4c654ec96b222f74'),
 //   user_id: 809673990,

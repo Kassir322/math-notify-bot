@@ -8,6 +8,7 @@ import greeting from './conversations/greeting'
 import setDeveloper from './middlewares/setDeveloper'
 import register from './conversations/register'
 import { findStudentById } from './models/Student'
+import { startJobs } from './jobs'
 
 export const bot = new Bot<Context>(env.TOKEN)
 
@@ -48,7 +49,7 @@ async function runApp() {
   })
   bot.use(createConversation(register))
   bot.command('register', async (ctx) => {
-    const student = await findStudentById(Number(env.BOT_DEVELOPER))
+    const student = await findStudentById(Number(ctx.from?.id))
     if (!student) {
       await ctx.conversation.enter('register')
     } else {

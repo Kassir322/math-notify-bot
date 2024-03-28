@@ -4,6 +4,7 @@ import { getSchedules } from './models/Student'
 
 export const startJobs = async () => {
   const data = await getSchedules()
+
   if (!data) {
     throw new Error('Schedules not found')
   } else {
@@ -12,6 +13,7 @@ export const startJobs = async () => {
         scheduleJob(`${student.user_id}_${index}`, schedule, () => {
           bot.api.sendMessage(student.user_id, 'Напоминание')
         })
+        console.log(schedule)
       })
     })
   }
